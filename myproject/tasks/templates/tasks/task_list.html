@@ -1,0 +1,23 @@
+<!-- tasks/templates/tasks/task_list.html -->
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h1>Task List</h1>
+    <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Create New Task</a>
+    
+    <div class="list-group">
+        {% for task in tasks %}
+            <div class="list-group-item">
+                <h5>{{ task.title }}</h5>
+                <p>{{ task.description }}</p>
+                <p>Status: {% if task.completed %}Completed{% else %}Pending{% endif %}</p>
+                <div class="btn-group">
+                    <a href="{% url 'task_update' task.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No tasks available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
